@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/b27bdb2d00.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="weather-app">
+        <div class="container">
+            <h2 class="brand">не<font color="#FF0000">Я</font>ндекс.Погода</h2>
+            <div>
+                <h1 class="temp">16&#176;</h1>
+                <div class="city-time">
+                    <h1 class="name">Москва</h1>
+                    <small>
+                        <span class="time">06:09</span>
+                        -
+                        <span class="date">
+                            Понедельник 19 сен
+                        </span>
+                    </small>
+                </div>
+                <div class="weather">
+                    <img 
+                        src="./icons/day/113.png" 
+                        alt="icon" 
+                        class="icon"
+                        width="50"
+                        height="50" 
+                    />
+                    <span class="condition">Облачно</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <form class="locationInput">
+                <input
+                    type="text"
+                    class="search"
+                    placeholder="Поиск местоположения..." 
+                />
+                <button type="submit" class="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+            <ul class="cities">
+                <li class="city">Красногорск</li>
+                <li class="city">Балашиха</li>
+                <li class="city">Калиниград</li>
+                <li class="city">Владимир</li>
+            </ul>
+
+            <ul class="details">
+                <h4>Детальная информация</h4>
+                <li>
+                    <span>Облачно</span>
+                    <span class="cloud">89%</span>
+                </li>
+                <li>
+                    <span>Влажность</span>
+                    <span class="humidity">64%</span>
+                </li>
+                <li>
+                    <span>Ветер</span>
+                    <span class="wind">5км/ч</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
