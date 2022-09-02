@@ -101,6 +101,9 @@ function fetchWeatherData() {
                 case 'Sunny':
                     conditionOutput.innerHTML = "Солнечно";
                     break;
+                case 'Clear':
+                    conditionOutput.innerHTML = 'Безоблачно';
+                    break;
                 case 'Partly cloudy':
                     conditionOutput.innerHTML = "Переменная облачность";
                     break;
