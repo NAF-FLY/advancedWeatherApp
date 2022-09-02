@@ -78,6 +78,7 @@ h1, h3 {
 
 .weather img {
     display: block;
+    justify-content: center;
     margin: 0.5em 0;
 }
 
