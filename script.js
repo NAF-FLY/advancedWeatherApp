@@ -17,7 +17,7 @@ const app = document.querySelector('.weather-app'),
       cities = document.querySelectorAll('.city');
 
 // Дефолтное значения для города при загрузке
-let cityInput = "Moscow";
+let cityInput = "Москва";
 
 cities.forEach(city => {
     city.addEventListener('click', (event) => {
@@ -48,15 +48,45 @@ form.addEventListener('submit', (event) => {
 
 function dayOfTheWeek(day, month, year) {
     const weekday = [
-        'Понедельник',
         'Вторник',
         'Среда',
         'Четверг',
         'Пятница',
         'Суббота',
         'Воскресенье',
+        'Понедельник'
     ];
+    console.log(weekday[new Date(`${day}/${month}/${year}`).getDay()]);
     return weekday[new Date(`${day}/${month}/${year}`).getDay()];
+}
+
+function nameOfTheMonth(month) {
+    switch (month) {
+        case 1:
+            return 'Января';
+        case 2:
+            return 'Февраля';
+        case 3:
+            return 'Марта';
+        case 4:
+            return 'Апреля';
+        case 5:
+            return 'Мая';
+        case 6:
+            return 'Июня';
+        case 7:
+            return 'Июля';
+        case 8:
+            return 'Августа';
+        case 9:
+            return 'Сентября';
+        case 10:
+            return 'Октября';
+        case 11:
+            return 'Ноября';
+        case 12:
+            return 'Декабря';
+    }
 }
 
 function fetchWeatherData() {
@@ -66,6 +96,39 @@ function fetchWeatherData() {
             console.log(data);
             temp.innerHTML = Math.round(data.current.temp_c) + "&#176;";
             conditionOutput.innerHTML = data.current.condition.text;
+            console.log(data.current.condition.text);
+            switch (data.current.condition.text) {
+                case 'Sunny':
+                    conditionOutput.innerHTML = "Солнечно";
+                    break;
+                case 'Partly cloudy':
+                    conditionOutput.innerHTML = "Переменная облачность";
+                    break;
+                case 'Patchy rain possible':
+                    conditionOutput.innerHTML = "Возможен кратковременный дождь";
+                    break;
+                case 'Light rain':
+                    conditionOutput.innerHTML = "Легкий дождь";
+                    break; 
+                case 'Overcast':
+                    conditionOutput.innerHTML = "Пасмурная погода";
+                    break;  
+                case 'Mist':
+                    conditionOutput.innerHTML = "Туман";
+                    break;
+                case 'Blizzard':
+                    conditionOutput.innerHTML = "Снежная буря";
+                    break;
+                case 'Fog':
+                    conditionOutput.innerHTML = "Мгла";
+                    break;
+                case 'Light rain shower':
+                    conditionOutput.innerHTML = "Небольшой дождь";
+                    break;
+                default: 
+                    conditionOutput.innerHTML = "Попросите разработчика перевести :)";
+                    break;
+            } 
 
             const date = data.location.localtime;
             const y = parseInt(date.substr(0, 4));
@@ -73,7 +136,7 @@ function fetchWeatherData() {
             const d = parseInt(date.substr(8, 2));
             const time = date.substr(11);
 
-            dateOutput.innerHTML = `${dayOfTheWeek(d, m, y)} ${d}, ${m} ${y}`;
+            dateOutput.innerHTML = `${d} ${nameOfTheMonth(m)}, ${dayOfTheWeek(d, m, y)} ${y}`;
             timeOutput.innerHTML = time;
 
             nameOutput.innerHTML = data.location.name;
@@ -85,7 +148,7 @@ function fetchWeatherData() {
 
             cloudOutput.innerHTML = data.current.cloud + "%";
             humidityOutput.innerHTML = data.current.humidity + "%";
-            windOutput.innerHTML = data.current.wind_kph + "км/ч";
+            windOutput.innerHTML = ((data.current.wind_kph)*1000/3600).toFixed(1) + "м/c";
 
             let timeOfDay = "day";
 
@@ -97,7 +160,7 @@ function fetchWeatherData() {
 
             if(code == 1000) {
                 app.style.backgroundImage = `
-                    url(./images/${timeOfDay}/clear)`;
+                    url(./images/${timeOfDay}/clear.jpg)`;
                 
                 btn.style.background = "#e5ba92";
 
