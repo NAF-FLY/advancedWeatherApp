@@ -1,6 +1,5 @@
-'use strict';
+import {dayOfTheWeek, nameOfTheMonth, translateCondition, cityInput} from '../main';
 
-// Получение DOM элементов
 const app = document.querySelector('.weather-app'),
       temp = document.querySelector('.temp'),
       dateOutput = document.querySelector('.date'),
@@ -11,91 +10,15 @@ const app = document.querySelector('.weather-app'),
       cloudOutput = document.querySelector('.cloud'),
       humidityOutput = document.querySelector('.humidity'),
       windOutput = document.querySelector('.wind'),
-      form = document.querySelector('.locationInput'),
-      search = document.querySelector('.search'),
-      btn = document.querySelector('.submit'),
-      cities = document.querySelectorAll('.city');
+      btn = document.querySelector('.submit')
 
-// Дефолтное значения для города при загрузке
-let cityInput = "Москва";
-
-cities.forEach(city => {
-    city.addEventListener('click', (event) => {
-        cityInput = event.target.innerHTML;
-
-        fetchWeatherData();
-
-        app.style.opacity = "0";
-    });
-});
-
-
-form.addEventListener('submit', (event) => {
-    if (search.value.length == 0) {
-        alert('Введите название города');
-    } else {
-        cityInput = search.value;
-
-        fetchWeatherData();
-
-        search.value = "";
-
-        app.style.opacity = "0";
-    }
-
-    event.preventDefault();
-});
-
-function dayOfTheWeek(day, month, year) {
-    const weekday = [
-        'Вторник',
-        'Среда',
-        'Четверг',
-        'Пятница',
-        'Суббота',
-        'Воскресенье',
-        'Понедельник'
-    ];
-    console.log(weekday[new Date(`${day}/${month}/${year}`).getDay()]);
-    return weekday[new Date(`${day}/${month}/${year}`).getDay()];
-}
-
-function nameOfTheMonth(month) {
-    switch (month) {
-        case 1:
-            return 'Января';
-        case 2:
-            return 'Февраля';
-        case 3:
-            return 'Марта';
-        case 4:
-            return 'Апреля';
-        case 5:
-            return 'Мая';
-        case 6:
-            return 'Июня';
-        case 7:
-            return 'Июля';
-        case 8:
-            return 'Августа';
-        case 9:
-            return 'Сентября';
-        case 10:
-            return 'Октября';
-        case 11:
-            return 'Ноября';
-        case 12:
-            return 'Декабря';
-    }
-}
-
-function fetchWeatherData() {
+export function fetchWeatherData() {
     fetch(`https://api.weatherapi.com/v1/current.json?key=386fdf6b30fb46ada34215832220109&q=${cityInput}`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
             temp.innerHTML = Math.round(data.current.temp_c) + "&#176;";
-            conditionOutput.innerHTML = data.current.condition.text;
+            conditionOutput.innerHTML = translateCondition(data.current.condition.text);
             console.log(data.current.condition.text);
             switch (data.current.condition.text) {
                 case 'Sunny':
@@ -236,6 +159,3 @@ function fetchWeatherData() {
         });
 }
 
-fetchWeatherData();
-
-app.style.opacity = "1";
